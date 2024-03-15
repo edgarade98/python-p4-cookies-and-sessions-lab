@@ -4,6 +4,10 @@ from random import randint
 
 from faker import Faker
 
+import sys
+
+sys.path.append("/Users/winnie/python-p4-cookies-and-sessions-lab/")
+
 from app import app
 from models import db, Article, User
 
