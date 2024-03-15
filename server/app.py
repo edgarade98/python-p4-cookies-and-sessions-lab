@@ -27,18 +27,18 @@ def index_articles():
 
 @app.route('/articles/<int:id>')
 def show_article(id):
-    # If this is the first request this user has made, set session['page_views'] to an initial value of 0.
+    # first request this user has made has value of 0.
     session['page_views'] = session.get('page_views') or 0
-    # For every request to /articles/<int:id>, increment the value of session['page_views'] by 1.
+
+    # For every request for articles, increase the value of session for page views by 1.
     session['page_views'] += 1
 
-    # If the user has viewed 3 or fewer pages, render a JSON response with the article data.
+    # user has viewed 3 or fewer pages, render a JSON response with the article data.
     if session['page_views'] <= 3:
         return Article.query.filter(Article.id == id).first().to_dict(), 200
 
-    # If the user has viewed more than 3 pages, render a JSON response including an error message {'message': 'Maximum pageview limit reached'}, and a status code of 401 unauthorized. 
+    # user has viewed more than 3 pages status with code of 401 unauthorized. 
     return {'message': 'Maximum pageview limit reached'}, 401
-
 
 if __name__ == '__main__':
     app.run(port=5558)
